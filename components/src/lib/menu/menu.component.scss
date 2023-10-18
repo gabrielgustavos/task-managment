@@ -1,0 +1,56 @@
+@import "src/assets/scss/utils/variables";
+@import "src/assets/scss/utils/mixins";
+
+.menu-container {
+  height: 100vh;
+  border-right: 1px solid $medium-grey;
+  padding-top: 32px;
+  max-width: 300px;
+
+  .logo-img {
+    padding-bottom: 54px;
+    padding-left: 2rem
+  }
+}
+
+.nav-container {
+  @include flex-col;
+  gap: 1rem;
+  padding-top: 19px;
+  p {
+    padding-left: 2rem;
+  }
+  .nav-items {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: $size-15 0;
+    &:hover {
+      background-color: $main-purple;
+      border-radius: 0px 100px 100px 0px;
+      span {
+        color: $white;
+      }
+    }
+  }
+}
+
+.footer-container {
+  position: fixed;
+  bottom: 47px;
+  .theme-control {
+    background-color: $light-grey;
+    @include centralizar;
+    gap: 2rem;
+    height: 48px;
+    margin-inline: 25px;
+  }
+
+  .sidebar-visibility {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 2rem;
+    padding-top: 22px;
+  }
+}

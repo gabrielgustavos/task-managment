@@ -6,8 +6,9 @@ import { NxWelcomeComponent } from './nx-welcome.component';
   standalone: true,
   imports: [NxWelcomeComponent, RouterModule],
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  template: `
+    <app-nx-welcome></app-nx-welcome> <router-outlet></router-outlet>
+  `,
 })
 export class AppComponent {
   title = 'task-managment';

@@ -1,0 +1,24 @@
+@import "src/assets/scss/utils/variables";
+@import "src/assets/scss/utils/mixins";
+
+input {
+  width: 350px;
+  padding: $size-8 0 $size-9 16px;
+  color: $black;
+  font-size: $size-13;
+  font-weight: 500;
+  border: 1px solid rgba($medium-grey, 0.25);
+  border-radius: 4px;
+  margin-top: 4px;
+  &::placeholder {
+    font-size: $size-13;
+    font-weight: 500;
+    color: $medium-grey;
+  }
+}
+
+label {
+  color: $medium-grey;
+  font-size: $size-12;
+  font-weight: 700;
+}

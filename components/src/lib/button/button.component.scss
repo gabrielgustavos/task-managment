@@ -1,0 +1,39 @@
+@import "src/assets/scss/utils/variables";
+@import "src/assets/scss/utils/mixins";
+
+button {
+  background-color: $main-purple;
+  border-radius: 24px;
+  color: $white;
+  border: none;
+  width: 255px;
+  @include centralizar;
+  cursor: pointer;
+  font-size: $size-15;
+  font-weight: 700;
+  padding: $size-15 0;
+  &:hover {
+    background-color: $main-purple-hover;
+  }
+  &.small {
+    padding: $size-9 0;
+  }
+
+  &.secondary{
+    background-color: rgba($main-purple, 0.10);
+    color: $main-purple;
+    padding: $size-9 0;
+    &:hover {
+      background-color: rgba($main-purple, 0.25);
+    }
+  }
+
+  &.destructive {
+    background-color: $red;
+    padding: $size-9 0;
+    color: $white;
+    &:hover {
+      background-color: $red-hover;
+    }
+  }
+}
