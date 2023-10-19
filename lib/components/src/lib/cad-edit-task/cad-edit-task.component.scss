@@ -1,0 +1,61 @@
+@import 'src/assets/scss/utils/variables';
+@import 'src/assets/scss/utils/mixins';
+
+.form-container {
+  @include flex-col;
+  gap: 24px;
+}
+.textarea {
+  @include flex-col;
+  textarea {
+    resize: none;
+    width: 100%;
+    padding: $size-8 0 $size-9 16px;
+    color: $text-color;
+    font-size: $size-13;
+    font-weight: 500;
+    border: 1px solid rgba($medium-grey, 0.25);
+    border-radius: 4px;
+    margin-top: 4px;
+    height: 112px;
+    outline: none;
+    background-color: $bg-color;
+    &::placeholder {
+      font-size: $size-13;
+      font-weight: 500;
+      color: $medium-grey;
+    }
+    &:focus {
+      border: 1px solid $main-purple;
+    }
+  }
+}
+
+.subtasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  .input-subtask {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr .05fr;
+    align-items: center;
+
+    .first-mark {
+      transform: translate(0px, 10px);
+    }
+  
+    .fa-xmark {
+      position: absolute;
+      right: -.5rem;
+      top: 50%;
+    }
+  }
+}
+
+
+
+
+.btn-save {
+  padding-top: 24px;
+}

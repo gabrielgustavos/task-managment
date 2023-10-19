@@ -1,3 +1,10 @@
+$break-mobile: 544px;
+$break-tablet: 768px;
+$break-phablet: 992px;
+$break-desktop: 1200px;
+$break-desktop-hd: 1400px;
+$break-desktop-full-hd: 1920px;
+
 $size-1: 0.0625rem;
 $size-2: 0.125rem;
 $size-3: 0.1875rem;
@@ -35,6 +42,12 @@ $medium-grey: #828FA3;
 $lines-dark: #3E3F4E;
 $lines-grey: #E4EBFA;
 $white: #FFFFFF;
+$lines-color: var(--lines-color);
+$bg-secondary-color: var(--bg-secondary-color);
+$btn-secondary: var(--btn-secondary);
+$btn-secondary-hover: var(--btn-secondary-hover);
+$bg-color: var(--bg-color);
+$text-color: var(--text-color);
 $red: #EA5555;
 $red-hover: #FF9898;
 

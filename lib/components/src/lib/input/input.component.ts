@@ -52,6 +52,7 @@ import { MaskEnum } from './mask.enum';
             [maxlength]="maxlength"
             [name]="id"
             [id]="id"
+            autocomplete="false"
           />
           <i (click)="clickIcon()" class=" {{ icone }} icone-senha"></i>
         </div>

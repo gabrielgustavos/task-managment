@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ButtonComponent, InputComponent, MenuComponent } from 'components';
+import {
+  BoardComponent,
+  ButtonComponent,
+  HeaderComponent,
+  InputComponent,
+  MenuComponent,
+} from 'components';
 
 @Component({
   selector: 'app-nx-welcome',
@@ -12,8 +18,21 @@ import { ButtonComponent, InputComponent, MenuComponent } from 'components';
     NgSelectModule,
     InputComponent,
     ButtonComponent,
+    HeaderComponent,
+    BoardComponent,
   ],
-  template: ` <lib-menu></lib-menu> `,
+  template: `
+    <div class="container">
+    <div>
+      <lib-menu></lib-menu>
+    </div>
+    <div>
+      <lib-header>
+        <lib-board></lib-board>
+      </lib-header>
+    </div>
+    </div>
+  `,
   styles: [],
   encapsulation: ViewEncapsulation.None,
 })

@@ -1,2 +1,18 @@
 @import 'utils/main';
 @import 'vendor/main';
+@import 'components/main';
+@import '~@angular/cdk/overlay-prebuilt.css';
+
+@media (min-width: ($break-desktop-full-hd + 1)) {
+  html,
+  body {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: $break-desktop-hd) {
+  html,
+  body {
+    font-size: 14px;
+  }
+}

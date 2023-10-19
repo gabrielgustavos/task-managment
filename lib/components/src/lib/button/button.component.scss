@@ -6,31 +6,32 @@ button {
   border-radius: 24px;
   color: $white;
   border: none;
-  width: 255px;
+  width: 100%;
   @include centralizar;
+  gap: .75rem;
   cursor: pointer;
   font-size: $size-15;
   font-weight: 700;
-  padding: $size-15 0;
+  padding: $size-15 25px;
   &:hover {
     background-color: $main-purple-hover;
   }
   &.small {
-    padding: $size-9 0;
+    padding: .822rem 25px;
   }
 
   &.secondary{
-    background-color: rgba($main-purple, 0.10);
+    background-color: $btn-secondary;
     color: $main-purple;
-    padding: $size-9 0;
+    padding: .822rem 25px;
     &:hover {
-      background-color: rgba($main-purple, 0.25);
+      background-color: $btn-secondary-hover;
     }
   }
 
   &.destructive {
     background-color: $red;
-    padding: $size-9 0;
+    padding: .822rem 25px;
     color: $white;
     &:hover {
       background-color: $red-hover;

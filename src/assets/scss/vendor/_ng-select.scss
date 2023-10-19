@@ -47,9 +47,9 @@
 }
 
 .ng-select .ng-select-container {
-  background-color: $white;
+  background-color: $bg-color;
   border-radius: 4px;
-  border: 1px solid rgba($medium-grey, 0.25);
+  border: 1px solid rgba(130, 143, 163, 0.25);
   height: 2.625rem;
   align-items: center;
   transition: all 0.3s;
@@ -60,21 +60,18 @@
 
 .ng-select .ng-select-container .ng-input input {
   font-size: $size-14;
-}
-
-.ng-select .ng-select-container .ng-input input {
-  font-size: $size-14;
+  color: $text-color;
 }
 
 .ng-select .ng-select-container .ng-value-container .ng-value {
   font-size: $size-13;
-  color: $black;
+  color: $text-color;
   font-weight: 500;
 }
 
 .ng-select .ng-select-container .ng-value-container .ng-placeholder {
   font-size: $size-13;
-  color: $black;
+  color: $text-color;
   font-weight: 500;
 }
 
@@ -120,6 +117,7 @@
 .ng-dropdown-panel.ng-select-bottom {
   top: 100%;
   border-top-color: #f3f3f3;
+  background-color: $bg-color;
 }
 
 .ng-dropdown-panel.ng-select-left {
@@ -167,5 +165,6 @@
   &::before {
     content: '\f107';
     font-family: 'FontAwesome';
+    color: $main-purple;
   }
 }

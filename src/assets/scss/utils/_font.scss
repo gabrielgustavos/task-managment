@@ -77,6 +77,20 @@
   font-weight: 700;
 }
 
+.title {
+  color: $text-color;
+  font-size: $size-24;
+  font-weight: 700;
+}
+
+.text-color {
+  color: $text-color;
+}
+
+.color-main-purple {
+  color: $main-purple;
+}
+
 .color-md-grey {
   color: $medium-grey;
 }

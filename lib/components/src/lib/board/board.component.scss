@@ -1,0 +1,10 @@
+@import 'src/assets/scss/utils/mixins';
+@import 'src/assets/scss/utils/variables';
+
+.board-container {
+  @include flex-col-center;
+  height: 100%;
+  gap: 32px;
+  background-color: $bg-secondary-color;
+  border-left: 1px solid $lines-color;
+}

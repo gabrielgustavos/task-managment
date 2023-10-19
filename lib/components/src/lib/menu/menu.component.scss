@@ -1,21 +1,21 @@
-@import "src/assets/scss/utils/variables";
-@import "src/assets/scss/utils/mixins";
+@import 'src/assets/scss/utils/variables';
+@import 'src/assets/scss/utils/mixins';
 
 .menu-container {
   height: 100vh;
-  border-right: 1px solid $medium-grey;
   padding-top: 32px;
-  max-width: 300px;
-
+  width: 300px;
+  overflow-y: auto;
+  background-color: $bg-color;
   .logo-img {
     padding-bottom: 54px;
-    padding-left: 2rem
+    padding-left: 2rem;
   }
 }
 
 .nav-container {
   @include flex-col;
-  gap: 1rem;
+  gap: .5rem;
   padding-top: 19px;
   p {
     padding-left: 2rem;
@@ -24,11 +24,14 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: $size-15 0;
+    padding: 0.9375rem 0 0.9375rem 2rem;
+    margin-right: 24px;
     &:hover {
       background-color: $main-purple;
       border-radius: 0px 100px 100px 0px;
-      span {
+      cursor: pointer;
+      span,
+      i {
         color: $white;
       }
     }
@@ -39,11 +42,12 @@
   position: fixed;
   bottom: 47px;
   .theme-control {
-    background-color: $light-grey;
+    background-color: $bg-secondary-color;
     @include centralizar;
-    gap: 2rem;
+    gap: 1rem;
     height: 48px;
     margin-inline: 25px;
+    width: 251px;
   }
 
   .sidebar-visibility {

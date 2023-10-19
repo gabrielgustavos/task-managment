@@ -1,7 +1,39 @@
 @import "./assets/scss/main";
 
+:root {
+  --bg-color: #FFFFFF;
+  --text-color: #000112;
+  --bg-secondary-color: #F4F7FD;
+  --lines-color: #E4EBFA;
+  --label: #828FA3;
+  --btn-secondary: rgba(99, 95, 199, 0.10);
+  --btn-secondary-hover: rgba(99, 95, 199, 0.25);
+}
+
+:root .dark-theme {
+  --bg-color: #2B2C37;
+  --bg-secondary-color: #20212C;
+  --text-color: #FFFFFF;
+  --lines-color: #3E3F4E;
+  --label: #FFFFFF;
+  --btn-secondary: #FFFFFF;
+  --btn-secondary-hover: #FFFFFF;
+
+}
 *, body, html {
   font-family: 'Plus Jakarta Sans', sans-serif;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+label {
+  color: var(--label);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.container {
+  display: grid;
+    grid-template-columns: 1fr 3.8fr;
 }
