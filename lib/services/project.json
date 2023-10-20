@@ -1,7 +1,7 @@
 {
   "name": "services",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "services/src",
+  "sourceRoot": "lib/services/src",
   "prefix": "lib",
   "tags": [],
   "projectType": "library",
@@ -21,7 +21,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["services/**/*.ts", "services/**/*.html"]

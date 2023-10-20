@@ -7,10 +7,25 @@
   background-color: $bg-secondary-color;
   border-left: 1px solid $lines-color;
   padding-top: 24px;
+  display: flex;
+  align-items: center;
 }
 
 .content-table {
   background-color: $bg-secondary-color;
   max-height: calc(100vh - 120px);
   overflow: auto;
+  padding-right: 1rem;
+}
+
+.card-content {
+  position: relative;
+
+  .fa-trash {
+    right: .5rem;
+    top: .5rem;
+    position: absolute;
+    color: $red;
+    cursor: pointer;
+  }
 }

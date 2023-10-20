@@ -1,0 +1,39 @@
+@import 'src/assets/scss/utils/variables';
+@import 'src/assets/scss/utils/mixins';
+
+.form-container {
+  @include flex-col;
+  gap: 24px;
+}
+
+
+.subtasks-container {
+  @include flex-col;
+  gap: 12px;
+  overflow-y: auto;
+  max-height: 25rem;
+  padding-right: 1rem;
+  .input-subtask {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr .05fr;
+    align-items: center;
+
+    .first-mark {
+      transform: translate(0px, 10px);
+    }
+  
+    .fa-xmark {
+      position: absolute;
+      right: -.5rem;
+      top: 50%;
+    }
+  }
+}
+
+
+
+
+.btn-save {
+  padding-top: 24px;
+}
