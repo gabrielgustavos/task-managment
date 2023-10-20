@@ -1,3 +1,19 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+
+  &.todo {
+    background-color: #49c4e5;
+  }
+  &.doing {
+    background-color: #8471f2;
+  }
+  &.done {
+    background-color: #67e2ae;
+  }
+}

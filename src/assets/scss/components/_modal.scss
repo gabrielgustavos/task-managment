@@ -9,6 +9,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    &.remover {
+      padding-bottom: 32px;
+      padding-top: 32px;
+    }
   }
 
   .body-modal {

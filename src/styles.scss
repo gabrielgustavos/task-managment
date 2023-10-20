@@ -37,3 +37,19 @@ label {
   display: grid;
     grid-template-columns: 1fr 3.8fr;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $main-purple;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $bg-secondary-color;
+}

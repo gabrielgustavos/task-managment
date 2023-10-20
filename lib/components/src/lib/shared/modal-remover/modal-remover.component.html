@@ -1,0 +1,28 @@
+<div class="content-modal fadeIn">
+  <div class="header-modal remover">
+    <span class="title delete">{{ data.titulo }}</span>
+  </div>
+
+  <div class="body-modal">
+    <div class="message-content">
+      <span class="font-13 font-500 color-md-grey">{{
+        data.mensagem
+      }}</span>
+    </div>
+
+      <div class="grid-btn">
+        <lib-button
+          (click)="fechar()"
+          [buttonDestructive]="true"
+          texto="Delete"
+        >
+        </lib-button>
+        <lib-button
+          (click)="salvar()"
+          texto="Cancel"
+          [buttonSecondary]="true"
+        >
+        </lib-button>
+      </div>
+  </div>
+</div>

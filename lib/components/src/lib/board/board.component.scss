@@ -2,9 +2,15 @@
 @import 'src/assets/scss/utils/variables';
 
 .board-container {
-  @include flex-col-center;
   height: 100%;
   gap: 32px;
   background-color: $bg-secondary-color;
   border-left: 1px solid $lines-color;
+  padding-top: 24px;
+}
+
+.content-table {
+  background-color: $bg-secondary-color;
+  max-height: calc(100vh - 120px);
+  overflow: auto;
 }
