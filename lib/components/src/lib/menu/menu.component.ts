@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { DataService, ThemeService } from 'services';
 import { ModalAddBoardComponent } from '../modal-add-board/modal-add-board.component';
@@ -15,7 +16,11 @@ import { ToggleModule } from '../toggle/toggle.module';
       <nav class="nav-container">
         <p class="color-md-grey font-12 font-700 spacing-3">ALL BOARDS (3)</p>
 
-        <div class="nav-items" *ngFor="let board of boards">
+        <div
+          class="nav-items"
+          *ngFor="let board of boards"
+          (click)="navigateBoard(board)"
+        >
           <i class="fa-light fa-table-rows color-md-grey"></i>
           <span class="color-md-grey font-15 font-700">{{ board }}</span>
         </div>
@@ -61,6 +66,7 @@ import { ToggleModule } from '../toggle/toggle.module';
 export class MenuComponent implements OnInit {
   themeService = inject(ThemeService);
   modalService = inject(ModalService);
+  router = inject(Router);
   private dataService = inject(DataService);
 
   logo = 'assets/images/logo-dark.svg';
@@ -69,8 +75,13 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getBoards().subscribe((data) => {
+      console.log(data);
       this.boards = data.map((item: any) => item.name);
     });
+  }
+
+  navigateBoard(board: string) {
+    this.router.navigate([`board/${board}`]);
   }
 
   public toggleMode() {

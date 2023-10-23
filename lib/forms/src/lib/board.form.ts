@@ -13,15 +13,15 @@ export class BoardFormGroup extends TreeFormGroup {
     return this.get('name') as FormControl;
   }
 
+  get columns(): FormArray {
+    return this.get('columns') as FormArray;
+  }
+
   constructor() {
     super({
       name: fb.control('', [Validators.required]),
       columns: fb.array([]),
     });
-  }
-
-  get columns(): FormArray {
-    return this.get('columns') as FormArray;
   }
 
   createColumn(): FormControl {

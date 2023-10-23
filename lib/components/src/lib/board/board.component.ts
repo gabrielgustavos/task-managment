@@ -1,6 +1,8 @@
 import { CdkTableModule } from '@angular/cdk/table';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { filter, takeUntil } from 'rxjs';
 import { DataService } from 'services';
 import { ModalRemoverComponent } from '../../index';
@@ -12,71 +14,25 @@ import { ModalService } from '../modal/modal.service';
   selector: 'lib-board',
   template: `
     <div class="board-container">
-      <!-- <span class="color-md-grey font-18 font-700">This board is empty. Create a new column to get started.</span>
-      <lib-button texto="Add New Column" [iconeEsquerda]="true" icone="fa-light fa-plus"></lib-button> -->
-
       <div class="content-table">
         <cdk-table [dataSource]="dataSource">
-          <ng-container cdkColumnDef="todo">
-            <cdk-header-cell *cdkHeaderCellDef>
-              <div class="circle todo"></div>
-
-              TODO (4)
-            </cdk-header-cell>
+          <ng-container
+            *ngFor="let column of displayedColumns; let i = index"
+            cdkColumnDef="{{ column }}"
+          >
+            <cdk-header-cell *cdkHeaderCellDef>{{
+              getColumnHeaderText(column)
+            }}</cdk-header-cell>
             <cdk-cell *cdkCellDef="let element">
-              <div class="card-content">
+              <div
+                class="card-content"
+                *ngFor="let task of getColumnData(column)"
+              >
                 <lib-card
-                  [title]="element.title"
-                  [subtitle]="element.subtitle"
+                  [title]="task.title"
+                  [subtitle]="task.subtasks.length + ' subtasks'"
                 ></lib-card>
                 <i class="fa-solid fa-trash"></i>
-              </div>
-            </cdk-cell>
-          </ng-container>
-
-          <ng-container cdkColumnDef="doing">
-            <cdk-header-cell *cdkHeaderCellDef>
-              <div class="circle doing"></div>
-              DOING (6)
-            </cdk-header-cell>
-            <cdk-cell *cdkCellDef="let element">
-              <div class="card-content">
-                <lib-card
-                  [title]="element.title"
-                  [subtitle]="element.subtitle"
-                ></lib-card>
-                <i (click)="removerCard()" class="fa-solid fa-trash"></i>
-              </div>
-            </cdk-cell>
-          </ng-container>
-
-          <ng-container cdkColumnDef="done">
-            <cdk-header-cell *cdkHeaderCellDef>
-              <div class="circle done"></div>
-              DONE (7)
-            </cdk-header-cell>
-            <cdk-cell *cdkCellDef="let element">
-              <div class="card-content">
-                <lib-card
-                  [title]="element.title"
-                  [subtitle]="element.subtitle"
-                ></lib-card>
-                <i (click)="removerCard()" class="fa-solid fa-trash"></i>
-              </div>
-            </cdk-cell>
-          </ng-container>
-          <ng-container cdkColumnDef="paused">
-            <cdk-header-cell *cdkHeaderCellDef>
-              <div class="circle done"></div>
-              DONE (7)
-            </cdk-header-cell>
-            <cdk-cell *cdkCellDef="let element">
-              <div class="card-content">
-                <lib-card
-                  [title]="element.title"
-                  [subtitle]="element.subtitle"
-                ></lib-card>
-                <i (click)="removerCard()" class="fa-solid fa-trash"></i>
               </div>
             </cdk-cell>
           </ng-container>
@@ -92,50 +48,90 @@ import { ModalService } from '../modal/modal.service';
   `,
   styleUrls: ['./board.component.scss'],
   standalone: true,
-  imports: [ButtonComponent, CardComponent, HttpClientModule, CdkTableModule],
+  imports: [
+    ButtonComponent,
+    CommonModule,
+    CardComponent,
+    HttpClientModule,
+    CdkTableModule,
+  ],
   providers: [DataService],
 })
 export class BoardComponent extends BaseComponent implements OnInit {
   private dataService = inject(DataService);
-  dataSource = [
-    {
-      title: 'Build UI for onboarding flow',
-      subtitle: '0 of 3 subtasks',
-    },
-    {
-      title: 'Build UI for onboarding flow',
-      subtitle: '0 of 3 subtasks',
-    },
-    {
-      title: 'Build UI for onboarding flow',
-      subtitle: '0 of 3 subtasks',
-    },
-    {
-      title: 'Build UI for onboarding flow',
-      subtitle: '0 of 3 subtasks',
-    },
-    {
-      title: 'Build UI for onboarding flow',
-      subtitle: '0 of 3 subtasks',
-    },
-  ];
-  displayedColumns = ['todo', 'doing', 'done', 'paused'];
+  dataSource: any = [];
+  displayedColumns: any = [];
+  boardName!: string;
+  columnName!: string;
+  private columnsData: any = {};
+
   private modalService = inject(ModalService);
+  private activatedRoute = inject(ActivatedRoute);
   constructor() {
     super();
   }
 
   ngOnInit() {
-    this.dataService.getBoards().subscribe((data) => {
-      const filter = data.filter(
-        (item: any) => item.name === 'Platform Launch'
-      );
-      const columnFilter = filter[0].columns;
-      const columnTodo = columnFilter.filter(
-        (item: any) => item.name === 'Todo'
-      );
-      console.log(columnTodo[0].name);
+    this.getBoardName();
+  }
+
+  getBoardName() {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      const boardName = params.get('id');
+      if (boardName) {
+        this.fetchBoardData(boardName);
+        this.getBoardItems();
+        this.getDataSource();
+      } else {
+      }
     });
+  }
+
+  fetchBoardData(boardName: string) {
+    this.dataService.getBoards().subscribe((data) => {
+      const filter = data.filter((item: any) => item.name === boardName);
+      this.boardName = filter[0].name;
+    });
+  }
+
+  getBoardItems() {
+    this.dataService.getBoards().subscribe((data) => {
+      const filter = data.find((item: any) => item.name === this.boardName);
+      if (filter) {
+        const columns = filter.columns;
+        this.displayedColumns = columns.map((obj: any) => obj.name);
+      }
+    });
+  }
+
+  getColumnHeaderText(column: string): string {
+    const board = this.displayedColumns.find((col: any) => col === column);
+    if (board) {
+      return column;
+    }
+    return column;
+  }
+
+  getDataSource() {
+    this.dataService.getBoards().subscribe((data) => {
+      const filter = data.find((item: any) => item.name === this.boardName);
+      if (filter) {
+        const columns = filter.columns;
+        this.columnsData = columns.reduce((acc: any, column: any) => {
+          // Only add the column to the data if it has tasks
+          if (column.tasks.length > 0) {
+            acc[column.name] = column.tasks;
+          }
+          return acc;
+        }, {});
+        this.displayedColumns = Object.keys(this.columnsData);
+        this.dataSource = Object.values(this.columnsData).flat();
+      }
+    });
+  }
+
+  getColumnData(columnName: string) {
+    return this.columnsData[columnName] || [];
   }
 
   removerCard() {

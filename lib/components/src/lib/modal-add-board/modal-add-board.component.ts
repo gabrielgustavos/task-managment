@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, Inject, OnInit, inject } from '@angular/core';
-import { FormArray, ReactiveFormsModule } from '@angular/forms';
-import { BoardFormGroup } from 'forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { DataService } from 'services';
 import { BaseComponent } from '../base.component';
 import { ButtonComponent } from '../button/button.component';
@@ -26,10 +30,13 @@ import { DIALOG_DATA } from '../modal/modal.tokens';
             placeholder="e.g. Web Design"
           ></lib-input>
           <div class="subtasks-container" formArrayName="columns">
-            <div *ngFor="let column of form.columns.controls; let i = index">
+            <div
+              *ngFor="let column of columnFormGroups.controls; let i = index"
+              formGroupName="{{ i }}"
+            >
               <div class="input-subtask">
                 <lib-input
-                  [formControlName]="i"
+                  formControlName="name"
                   label="Columns"
                   placeholder="Todo"
                 ></lib-input>
@@ -49,7 +56,7 @@ import { DIALOG_DATA } from '../modal/modal.tokens';
           <div class="btn-save">
             <lib-button
               texto="Create New Board"
-              (click)="salvar()"
+              (click)="submitForm()"
             ></lib-button>
           </div>
         </form>
@@ -68,7 +75,7 @@ import { DIALOG_DATA } from '../modal/modal.tokens';
   providers: [DataService],
 })
 export class ModalAddBoardComponent extends BaseComponent implements OnInit {
-  form: BoardFormGroup = new BoardFormGroup();
+  form!: FormGroup;
   private dataService = inject(DataService);
   constructor(
     @Inject(DIALOG_DATA) public data: any,
@@ -77,7 +84,62 @@ export class ModalAddBoardComponent extends BaseComponent implements OnInit {
     super();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.form = new FormGroup({
+      name: new FormControl(''),
+      columns: new FormArray([
+        new FormGroup({
+          name: new FormControl(''),
+        }),
+      ]),
+    });
+  }
+
+  submitForm() {
+    let id = new Date().getTime();
+
+    //@ts-ignore
+    let columns = this.form.value.columns.map((item, index) => {
+      return {
+        id: index.toString(),
+        name: item.name,
+      };
+    });
+    let data: any = {
+      columns: columns,
+      id: id.toString(),
+      name: this.form.value.name.trim(),
+      tasks: [
+        {
+          id: '0',
+          title: 'Build UI for onboarding flow',
+          description: '',
+          status: 'Todo',
+          subtasks: [
+            {
+              id: '1',
+              title: 'Sign up page',
+              isCompleted: true,
+            },
+            {
+              id: '2',
+              title: 'Sign in page',
+              isCompleted: false,
+            },
+            {
+              id: '3',
+              title: 'Welcome page',
+              isCompleted: false,
+            },
+          ],
+        },
+      ],
+    };
+
+    this.dataService.postBoards(data).subscribe((data) => {
+      console.log(data);
+    });
+  }
 
   fechar() {
     this.dialogRef.close(false);
@@ -87,9 +149,16 @@ export class ModalAddBoardComponent extends BaseComponent implements OnInit {
     this.dialogRef.close(this.form.value);
   }
 
+  get columnFormGroups() {
+    return this.form.get('columns') as FormArray;
+  }
   addColumn() {
-    const columns = this.form.get('columns') as FormArray;
-    columns.push(this.form.createColumn());
+    const column = <FormArray>this.form.controls['columns'];
+    column.push(
+      new FormGroup({
+        name: new FormControl(''),
+      })
+    );
   }
 
   removeColumn(index: number) {
