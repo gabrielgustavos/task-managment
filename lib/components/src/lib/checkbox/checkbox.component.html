@@ -1,0 +1,20 @@
+<div class="checkbox-container">
+    <input
+      class="cursor-pointer"
+      type="checkbox"
+      [indeterminate]="indeterminate"
+      [(ngModel)]="checked"
+      [formControl]="control"
+      id="{{label}}"
+    />
+  <label 
+  [ngClass]="{
+    'font-500': checked,
+    'font-700': !checked,
+    'text-color': !checked,
+  }"
+  for="{{label}}" class="cursor-pointer"
+    ><s *ngIf="checked">{{ label }}</s>
+    <span *ngIf="!checked">{{label}}</span>
+  </label>
+</div>

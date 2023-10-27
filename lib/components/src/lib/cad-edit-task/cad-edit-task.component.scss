@@ -1,6 +1,12 @@
 @import 'src/assets/scss/utils/variables';
 @import 'src/assets/scss/utils/mixins';
 
+.header-modal-edit {
+  @include flex-col;
+  gap: 2rem;
+  padding: 32px;
+}
+
 .form-container {
   @include flex-col;
   gap: 24px;
@@ -53,8 +59,16 @@
   }
 }
 
-
-
+.checkbox-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: $bg-secondary-color;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 
 .btn-save {
   padding-top: 24px;

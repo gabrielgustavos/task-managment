@@ -1,11 +1,11 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, takeUntil } from 'rxjs';
+import { filter, take, takeUntil } from 'rxjs';
 import { DataService } from 'services';
-import { ModalRemoverComponent } from '../../index';
+import { CadEditTask, ModalRemoverComponent } from '../../index';
 import { BaseComponent } from '../base.component';
 import { ButtonComponent } from '../button/button.component';
 import { CardComponent } from '../card/card.component';
@@ -28,11 +28,16 @@ import { ModalService } from '../modal/modal.service';
                 class="card-content"
                 *ngFor="let task of getColumnData(column)"
               >
-                <lib-card
-                  [title]="task.title"
-                  [subtitle]="task.subtasks.length + ' subtasks'"
-                ></lib-card>
-                <i class="fa-solid fa-trash"></i>
+                <div>
+                  <lib-card
+                    (click)="editarTask(task)"
+                    [title]="task.title"
+                    [subtitle]="task.subtasks.length + ' subtasks'"
+                  ></lib-card>
+                </div>
+                <div (click)="removerCard(task)">
+                  <i class="fa-solid fa-trash"></i>
+                </div>
               </div>
             </cdk-cell>
           </ng-container>
@@ -54,8 +59,9 @@ import { ModalService } from '../modal/modal.service';
     CardComponent,
     HttpClientModule,
     CdkTableModule,
+    CadEditTask,
   ],
-  providers: [DataService],
+  providers: [DataService, ModalService],
 })
 export class BoardComponent extends BaseComponent implements OnInit {
   private dataService = inject(DataService);
@@ -67,6 +73,7 @@ export class BoardComponent extends BaseComponent implements OnInit {
 
   private modalService = inject(ModalService);
   private activatedRoute = inject(ActivatedRoute);
+  private http = inject(HttpClient);
   constructor() {
     super();
   }
@@ -134,7 +141,9 @@ export class BoardComponent extends BaseComponent implements OnInit {
     return this.columnsData[columnName] || [];
   }
 
-  removerCard() {
+  removerCard(id: any) {
+    console.log(id);
+
     const modal = this.modalService.open(ModalRemoverComponent, {
       width: '480px',
       clickOutside: true,
@@ -143,6 +152,28 @@ export class BoardComponent extends BaseComponent implements OnInit {
         mensagem:
           'Are you sure you want to delete the ‘Build settings UI’ task and its subtasks? This action cannot be reversed.',
       },
+    });
+
+    modal
+      .afterClosed()
+      .pipe(
+        take(1),
+        filter((data: any) => data !== false)
+      )
+      .subscribe((data: any) => {
+        if (data) {
+          this.removerTask(id);
+        }
+      });
+  }
+
+  removerTask(taskToRemove: any): void {}
+
+  editarTask(data: any) {
+    const modal = this.modalService.open(CadEditTask, {
+      width: '480px',
+      clickOutside: true,
+      data: data,
     });
 
     modal

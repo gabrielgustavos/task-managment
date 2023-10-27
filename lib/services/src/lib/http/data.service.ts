@@ -18,4 +18,8 @@ export class DataService {
   public postBoards(board: any): Observable<any> {
     return this.http.post(this.endpointUrl, board);
   }
+
+  public deleteTask(task: any) {
+    return this.http.put(`${this.endpointUrl}`, task);
+  }
 }

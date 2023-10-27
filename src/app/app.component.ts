@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent, MenuComponent } from 'components';
 
@@ -19,6 +19,15 @@ import { HeaderComponent, MenuComponent } from 'components';
     </div>
   `,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'task-managment';
+
+  ngOnInit(): void {
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark-theme') {
+      document.body.classList.toggle('dark-theme');
+    } else {
+      document.body.classList.toggle('light-theme');
+    }
+  }
 }

@@ -68,14 +68,12 @@ export class MenuComponent implements OnInit {
   modalService = inject(ModalService);
   router = inject(Router);
   private dataService = inject(DataService);
-
   logo = 'assets/images/logo-dark.svg';
   boards: string[] = [];
   constructor() {}
 
   ngOnInit() {
     this.dataService.getBoards().subscribe((data) => {
-      console.log(data);
       this.boards = data.map((item: any) => item.name);
     });
   }
@@ -88,8 +86,10 @@ export class MenuComponent implements OnInit {
     const theme = document.body.classList.toggle('dark-theme');
     if (theme) {
       this.logo = 'assets/images/logo-light.svg';
+      localStorage.setItem('theme', 'dark-theme');
     } else {
       this.logo = 'assets/images/logo-dark.svg';
+      localStorage.setItem('theme', 'light-theme');
     }
   }
 
